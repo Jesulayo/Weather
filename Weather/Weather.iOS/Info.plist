@@ -34,5 +34,14 @@
     <string>Weather</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+
+    <key>UIAppFonts</key>
+    <array>
+      <string>Poppins-Regular.ttf</string>
+      <string>Poppins-Bold.ttf</string>
+      <string>Poppins-Light.ttf</string>
+      <string>Kanit-Bold.ttf</string>
+      <string>materialdesignicons-webfont.ttf</string>
+    </array>
 </dict>
 </plist>

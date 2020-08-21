@@ -119,6 +119,9 @@ namespace Weather.Models.Response
     {
         [JsonProperty("speed")]
         public long Speed { get; set; }
+
+        [JsonProperty("deg")]
+        public long Deg { get; set; }
     }
 
 }

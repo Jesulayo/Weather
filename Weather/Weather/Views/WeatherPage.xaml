@@ -3,24 +3,12 @@
     x:Class="Weather.Views.WeatherPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converter="clr-namespace:Weather.Converters"
     xmlns:extension="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:model="clr-namespace:Weather.Models"
     xmlns:prism="http://prismlibrary.com"
     xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     prism:ViewModelLocator.AutowireViewModel="True">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converter:PressureUnitConverter x:Key="PressureConverter" />
-            <converter:HumidityAndCloudUnitConverter x:Key="HumidityAndCloudConverter" />
-            <converter:SunriseAndSunsetUnitConverter x:Key="SunriseAndSunsetConverter" />
-            <converter:WindUnitConverter x:Key="WindConverter" />
-            <converter:TemperatureUnitConverter x:Key="TemperatureConverter" />
-            <converter:WeatherIconConverter x:Key="IconConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ScrollView>
     <yummy:PancakeView

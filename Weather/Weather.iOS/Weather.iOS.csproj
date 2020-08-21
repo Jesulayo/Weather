@@ -65,6 +65,11 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\Poppins-Light.ttf" />
+    <BundleResource Include="Resources\Poppins-Regular.ttf" />
+    <BundleResource Include="Resources\Kanit-Bold.ttf" />
+    <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
+    <BundleResource Include="Resources\Poppins-Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

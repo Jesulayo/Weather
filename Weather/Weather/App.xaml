@@ -6,9 +6,16 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+    xmlns:converter="clr-namespace:Weather.Converters"
     mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
+            <converter:PressureUnitConverter x:Key="PressureConverter" />
+            <converter:HumidityAndCloudUnitConverter x:Key="HumidityAndCloudConverter" />
+            <converter:SunriseAndSunsetUnitConverter x:Key="SunriseAndSunsetConverter" />
+            <converter:WindUnitConverter x:Key="WindConverter" />
+            <converter:TemperatureUnitConverter x:Key="TemperatureConverter" />
+            <converter:WeatherIconConverter x:Key="IconConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Colors.xaml" />
                 <ResourceDictionary Source="/Styles/Fonts.xaml" />

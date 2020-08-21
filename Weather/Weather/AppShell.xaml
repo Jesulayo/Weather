@@ -31,7 +31,10 @@
 
     <Shell.ItemTemplate>
         <DataTemplate>
-            <Grid BackgroundColor="#4A28B9" HeightRequest="50">
+            <Grid
+                Padding="20,0,0,0"
+                BackgroundColor="#4A28B9"
+                HeightRequest="50">
                 <Label
                     FontSize="Large"
                     HorizontalOptions="Start"
