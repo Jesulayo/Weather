@@ -24,10 +24,6 @@
                 <Setter Property="Shell.TabBarForegroundColor" Value="White" />
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarTitleColor" Value="White" />
-
-
-
-
             </Style>
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
         </ResourceDictionary>
@@ -53,10 +49,4 @@
     <FlyoutItem Title="Search by city name">
         <ShellContent ContentTemplate="{DataTemplate local:SearchByCityPage}" />
     </FlyoutItem>
-
-    <FlyoutItem Title="three by city name">
-        <ShellContent ContentTemplate="{DataTemplate local:ThreeDaysWeatherPage}" />
-    </FlyoutItem>
-
-
 </Shell>

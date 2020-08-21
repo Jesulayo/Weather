@@ -29,7 +29,6 @@ namespace Weather
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<AppShell>();
             containerRegistry.RegisterForNavigation<WeatherPage, WeatherPageViewModel>();
-            containerRegistry.RegisterForNavigation<ThreeDaysWeatherPage, ThreeDaysWeatherPageViewModel>();
             containerRegistry.RegisterForNavigation<SearchByCityPage, SearchByCityPageViewModel>();
         }
 
