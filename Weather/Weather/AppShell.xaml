@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Weather.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:local="clr-namespace:Weather.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Weather"
+    FlyoutBackgroundColor="#4A28B9"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="#4A28B9" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
+
+
+
+
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="#4A28B9" HeightRequest="50">
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource WhiteBodyText}"
+                    Text="{Binding Title}"
+                    VerticalOptions="End" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem Title="Get device location">
+        <ShellContent ContentTemplate="{DataTemplate local:WeatherPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Search by city name">
+        <ShellContent ContentTemplate="{DataTemplate local:SearchByCityPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="three by city name">
+        <ShellContent ContentTemplate="{DataTemplate local:ThreeDaysWeatherPage}" />
+    </FlyoutItem>
+
+
+</Shell>

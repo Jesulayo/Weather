@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Weather.Views.ThreeDaysWeatherPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:Weather.Converters"
+    xmlns:extension="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:model="clr-namespace:Weather.Models"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:PressureUnitConverter x:Key="PressureConverter" />
+            <converter:HumidityAndCloudUnitConverter x:Key="HumidityAndCloudConverter" />
+            <converter:SunriseAndSunsetUnitConverter x:Key="SunriseAndSunsetConverter" />
+            <converter:WindUnitConverter x:Key="WindConverter" />
+            <converter:TemperatureUnitConverter x:Key="TemperatureConverter" />
+            <converter:WeatherIconConverter x:Key="IconConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <yummy:PancakeView
+        BackgroundGradientAngle="300"
+        BackgroundGradientEndColor="{StaticResource LilacColor}"
+        BackgroundGradientStartColor="{StaticResource PurpleColor}">
+        <StackLayout Padding="10">
+            <StackLayout>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="110" />
+                    </Grid.ColumnDefinitions>
+
+
+
+
+                    <material:MaterialTextField
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        AlwaysShowUnderline="True"
+                        BackgroundColor="Transparent"
+                        FloatingPlaceholderEnabled="False"
+                        Placeholder="Enter city"
+                        PlaceholderColor="{StaticResource WhiteColor}"
+                        Text="{Binding SearchEntry}"
+                        TextColor="{StaticResource WhiteColor}"
+                        TintColor="{StaticResource WhiteColor}"
+                        UnderlineColor="{StaticResource WhiteColor}" />
+
+                    <material:MaterialButton
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        BackgroundColor="Transparent"
+                        BorderColor="{StaticResource WhiteColor}"
+                        BorderWidth="2"
+                        Command="{Binding SearchByCityWeather}"
+                        CornerRadius="15"
+                        HorizontalOptions="End"
+                        Text="Search"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="End" />
+
+                </Grid>
+
+
+
+                <Grid Padding="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        extension:Skeleton.IsBusy="{Binding IsBusy}"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource WhiteTitleText}"
+                        Text="{Binding CityName}"
+                        VerticalOptions="Center" />
+                    <Image
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="20,0,0,0"
+                        extension:Skeleton.Hide="True"
+                        extension:Skeleton.IsBusy="{Binding IsBusy}"
+                        Source="{Binding WeatherIcon, Converter={StaticResource IconConverter}}"
+                        Style="{StaticResource IconImage}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        extension:Skeleton.Hide="True"
+                        extension:Skeleton.IsBusy="{Binding IsBusy}"
+                        Style="{StaticResource WhiteTitleText}"
+                        Text="{Binding Temperature, Converter={StaticResource TemperatureConverter}}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        extension:Skeleton.IsBusy="{Binding IsBusy}"
+                        Style="{StaticResource WhiteBodyText}"
+                        Text="{Binding Description}" />
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal">
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Max: " />
+                        <Label
+                            extension:Skeleton.IsBusy="{Binding IsBusy}"
+                            Style="{StaticResource WhiteBodyText}"
+                            Text="{Binding MaximumTemperature, Converter={StaticResource TemperatureConverter}}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="  ~  " />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Min: " />
+                        <Label
+                            extension:Skeleton.IsBusy="{Binding IsBusy}"
+                            Style="{StaticResource WhiteBodyText}"
+                            Text="{Binding MinimumTemperature, Converter={StaticResource TemperatureConverter}}" />
+                    </StackLayout>
+                </Grid>
+
+
+            </StackLayout>
+            <StackLayout BackgroundColor="Green">
+                <ListView ItemsSource="{Binding allList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding Temperatures}" TextColor="HotPink" />
+
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--<StackLayout Padding="10">
+            <StackLayout>
+        -->
+        <!--<StackLayout Orientation="Horizontal">
+                    <SearchBar
+                        BackgroundColor="White"
+                        Placeholder="search city"
+                        PlaceholderColor="Black" />
+                    <Button
+                        BackgroundColor="Transparent"
+                        Text="Search"
+                        TextColor="White" />
+                </StackLayout>-->
+        <!--
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource WhiteTitleText}"
+                        Text="{Binding CityName}"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontFamily="{StaticResource MaterialFontFamily}"
+                        FontSize="30"
+                        HorizontalOptions="Center"
+                        Text="{x:Static model:IconFont.MapMarkerRadius}"
+                        TextColor="{StaticResource WhiteColor}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeviceWeather}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="70" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="20,0,0,0"
+                        Source="{Binding WeatherIcon, Converter={StaticResource IconConverter}}"
+                        Style="{StaticResource IconImage}" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource WhiteTitleText}"
+                        Text="{Binding Temperature, Converter={StaticResource TemperatureConverter}}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource WhiteBodyText}"
+                        Text="{Binding Description}" />
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal">
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Max: " />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="{Binding MaximumTemperature, Converter={StaticResource TemperatureConverter}}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="  ~  " />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Min: " />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="{Binding MinimumTemperature, Converter={StaticResource TemperatureConverter}}" />
+                    </StackLayout>
+                </Grid>
+
+
+            </StackLayout>
+
+            <ScrollView>
+                <StackLayout>
+                    <Grid ColumnSpacing="10" RowSpacing="30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="120" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <Frame
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WeatherWindy}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Wind" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Wind}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Wind, Converter={StaticResource WindConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WaterPercent}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Humidity" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Humidity}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Humidity, Converter={StaticResource HumidityAndCloudConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WeatherWindy}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Pressure" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Pressure}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Pressure, Converter={StaticResource PressureConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WeatherCloudy}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Cloud" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Cloud}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Cloud, Converter={StaticResource HumidityAndCloudConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WeatherSunsetUp}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Sunrise" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Sunrise}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Sunrise, Converter={StaticResource SunriseAndSunsetConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource WhiteColor}"
+                            CornerRadius="15"
+                            HeightRequest="150">
+                            <StackLayout Padding="-5" Spacing="0">
+                                <Label
+                                    FontFamily="{StaticResource MaterialFontFamily}"
+                                    FontSize="30"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{x:Static model:IconFont.WeatherSunsetDown}"
+                                    TextColor="{StaticResource WhiteColor}" />
+                                <Label Style="{StaticResource WhiteBodyText}" Text="Sunset" />
+        -->
+        <!--<Label Style="{StaticResource WhiteBodyText}" Text="{Binding Sunset}" />-->
+        <!--
+                                <Label Style="{StaticResource WhiteBodyText}" Text="{Binding Sunset, Converter={StaticResource SunriseAndSunsetConverter}}" />
+                            </StackLayout>
+                        </Frame>
+
+        -->
+        <!--<material:MaterialCard
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="Transparent"
+                        BorderColor="{StaticResource WhiteColor}"
+                        HeightRequest="150">
+                        <StackLayout Padding="-5" Spacing="0">
+                            <Label
+                                FontFamily="{StaticResource MaterialFontFamily}"
+                                FontSize="30"
+                                HorizontalTextAlignment="Center"
+                                Text="{x:Static model:IconFont.WeatherWindy}"
+                                TextColor="{StaticResource WhiteColor}" />
+                            <Label Style="{StaticResource WhiteBodyText}" Text="Windspeed" />
+                            <Label Style="{StaticResource WhiteBodyText}" Text="20m/s" />
+                        </StackLayout>
+                    </material:MaterialCard>-->
+
+        <!--<StackLayout Grid.Row="0" Grid.Column="1">
+                        <Label
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            FontSize="20"
+                            Text="{x:Static model:IconFont.WaterPercent}"
+                            TextColor="{StaticResource WhiteColor}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Humidity" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="20%" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="0" Grid.Column="2">
+                        <Label
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            FontSize="20"
+                            Text="{x:Static model:IconFont.WeatherWindy}"
+                            TextColor="{StaticResource WhiteColor}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Pressure" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="20bar" />
+                    </StackLayout>-->
+
+        <!--<StackLayout Grid.Row="1" Grid.Column="0">
+                        <Label
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            FontSize="20"
+                            Text="{x:Static model:IconFont.WeatherCloudy}"
+                            TextColor="{StaticResource WhiteColor}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Cloud" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="20%" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="1">
+                        <Label
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            FontSize="20"
+                            Text="{x:Static model:IconFont.WeatherSunsetUp}"
+                            TextColor="{StaticResource WhiteColor}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Sunrise" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="12:00am" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="2">
+                        <Label
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            FontSize="20"
+                            Text="{x:Static model:IconFont.WeatherSunsetDown}"
+                            TextColor="{StaticResource WhiteColor}" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="Sunset" />
+                        <Label Style="{StaticResource WhiteBodyText}" Text="12:00am" />
+                    </StackLayout>-->
+        <!--
+
+                    </Grid>
+
+                    <CollectionView SelectionMode="None">
+                        <CollectionView.HeaderTemplate>
+                            <DataTemplate>
+                                <BoxView
+                                    BackgroundColor="{StaticResource WhiteColor}"
+                                    CornerRadius="5"
+                                    HeightRequest="1" />
+                            </DataTemplate>
+                        </CollectionView.HeaderTemplate>
+
+                        <CollectionView.FooterTemplate>
+                            <DataTemplate>
+                                <BoxView
+                                    BackgroundColor="{StaticResource WhiteColor}"
+                                    CornerRadius="5"
+                                    HeightRequest="1" />
+                            </DataTemplate>
+                        </CollectionView.FooterTemplate>
+
+
+                    </CollectionView>
+
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>-->
+    </yummy:PancakeView>
+</ContentPage>

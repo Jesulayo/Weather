@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="Weather.Styles.Fonts"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+        <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+        <On Platform="iOS" Value="Material Design Icons" />
+    </OnPlatform>
+
+
+    <OnPlatform x:Key="PoppinsRegular" x:TypeArguments="x:String">
+        <On Platform="Android" Value="Poppins-Regular.ttf#Poppins-Regular" />
+        <On Platform="iOS" Value="Poppins-Regular" />
+    </OnPlatform>
+
+    <OnPlatform x:Key="PoppinsBold" x:TypeArguments="x:String">
+        <On Platform="Android" Value="Poppins-Bold.ttf#Poppins-Bold" />
+        <On Platform="iOS" Value="Poppins-Bold" />
+    </OnPlatform>
+
+    <OnPlatform x:Key="PoppinsLight" x:TypeArguments="x:String">
+        <On Platform="Android" Value="Poppins-Light.ttf#Poppins-Light" />
+        <On Platform="iOS" Value="Poppins-Light" />
+    </OnPlatform>
+
+    <OnPlatform x:Key="KanitBold" x:TypeArguments="x:String">
+        <On Platform="Android" Value="Kanit-Bold.ttf#Kanit-Bold" />
+        <On Platform="iOS" Value="Kanit-Bold" />
+    </OnPlatform>
+</ResourceDictionary>
